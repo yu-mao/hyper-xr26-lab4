@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class MenuSceneController : MonoBehaviour
 {
@@ -20,6 +22,13 @@ public class MenuSceneController : MonoBehaviour
         inputProvider = gameManager.InputProvider;
 
         inputProvider.GetRigTransform().position = Vector3.zero;
+
+        StartCoroutine(PlayStartupSequence());
+    }
+
+    private IEnumerator PlayStartupSequence()
+    {
+        yield return gameManager.LoadingScreen.Hide();
     }
 
     private void Update()

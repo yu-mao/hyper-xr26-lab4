@@ -1,6 +1,9 @@
+using DG.Tweening;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -11,8 +14,11 @@ public class GameManager : MonoBehaviour
     private KeyboardMouseInputManager keyboardMouseInputManager;
     [SerializeField]
     private bool useKeyboardMouse = false;
+    [SerializeField]
+    private LoadingScreen loadingScreen;
 
     public IInputProvider InputProvider { get; private set; }
+    public LoadingScreen LoadingScreen => loadingScreen;
 
     private void Awake()
     {
@@ -31,6 +37,19 @@ public class GameManager : MonoBehaviour
         }
 
         InputProvider.TryInitialize();
+        loadingScreen.Initialize(InputProvider.GetHeadTransform());
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            StartCoroutine(loadingScreen.Show());
+        }
+        if (Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            StartCoroutine(loadingScreen.Hide());
+        }
     }
 
     public void GoToJoystickScene()
