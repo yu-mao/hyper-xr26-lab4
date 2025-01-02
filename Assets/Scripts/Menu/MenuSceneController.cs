@@ -1,0 +1,41 @@
+﻿using UnityEngine;
+
+public class MenuSceneController : MonoBehaviour
+{
+    private GameManager gameManager;
+    private IInputProvider inputProvider;
+
+    private void Start()
+    {
+        if(gameManager == null)
+        {
+            Initialize(GameManager.BootstrapFromEditor());
+        }
+    }
+
+    public void Initialize(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+
+        inputProvider = gameManager.InputProvider;
+
+        inputProvider.GetRigTransform().position = Vector3.zero;
+    }
+
+    private void Update()
+    {
+        if (inputProvider.GetLeftController().IsButtonPressed(ControllerButtonId.One))
+        {
+            gameManager.GoToJoystickScene();
+        }
+        if (inputProvider.GetRightController().IsButtonPressed(ControllerButtonId.One))
+        {
+            gameManager.GoToTeleportScene();
+        }
+        if (inputProvider.GetRightController().IsButtonPressed(ControllerButtonId.Two))
+        {
+            gameManager.GoToClimbingScene();
+        }
+    }
+}
+
