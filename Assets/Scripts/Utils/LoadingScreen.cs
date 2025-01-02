@@ -6,13 +6,9 @@ public class LoadingScreen : MonoBehaviour
 {
     private MeshRenderer meshRenderer;
 
-    void Awake()
-    {
-        meshRenderer = GetComponent<MeshRenderer>();
-    }
-
     public void Initialize(Transform headTransform)
     {
+        meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material.SetFloat("_Alpha", 0f);
         transform.SetParent(headTransform);
         transform.localPosition = Vector3.zero;
