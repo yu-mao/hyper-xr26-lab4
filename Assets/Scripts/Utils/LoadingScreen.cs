@@ -11,8 +11,10 @@ public class LoadingScreen : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material.SetFloat("_Alpha", 0f);
+
         transform.SetParent(headTransform);
         transform.localPosition = Vector3.zero;
+
         gameObject.SetActive(false);
     }
 

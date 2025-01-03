@@ -19,8 +19,8 @@ public class Entrypoint : MonoBehaviour
     private IEnumerator PlayStartupSequence()
     {
         title.transform.localScale = Vector3.zero;
-        yield return title.transform.DOScale(1f, 3f).WaitForCompletion();
 
+        yield return title.transform.DOScale(endValue: 2f, duration: 3f).WaitForCompletion();
         yield return new WaitForSeconds(1f);
 
         yield return title.transform.DOScale(0f, 0.3f).WaitForCompletion();

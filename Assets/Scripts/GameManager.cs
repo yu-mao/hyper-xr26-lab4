@@ -71,13 +71,15 @@ public class GameManager : MonoBehaviour
     {
         if(inTransition)
         {
-            yield break;
+            yield break;//Exit!
         }
 
         inTransition = true;
         yield return loadingScreen.Show();
+
         yield return SceneManager.LoadSceneAsync(sceneName);
         sceneLoadedCallback?.Invoke();
+
         yield return loadingScreen.Hide();
         inTransition = false;
     }

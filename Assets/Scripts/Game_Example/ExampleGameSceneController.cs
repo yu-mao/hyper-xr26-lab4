@@ -47,12 +47,41 @@ public class ExampleGameSceneController : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             yield return new WaitForSeconds(spawnDelay);
-            var ball = Instantiate(bouncyBallPrefab, new Vector3(Random.Range(-10f, 10f), 10f, Random.Range(-10f, 10)), Quaternion.identity);
-            ball.transform.localScale = Vector3.one * Random.Range(0.4f, 1f);
+            
+            var ball = Instantiate(bouncyBallPrefab, 
+                new Vector3(Random.Range(-10f, 10f), 10f, Random.Range(-10f, 10)), 
+                Quaternion.identity);
+
+            if (i % 5 == 0)
+            {
+                ball.transform.localScale = Vector3.one * Random.Range(2.4f, 3f);
+            }
+            else
+            {
+                ball.transform.localScale = Vector3.one * Random.Range(0.4f, 1f);
+            }
         }
     }
 
     private void Update()
+    {
+        ApplyJoystickMovement();
+
+        //Update timer
+        float elapsed = Time.time - startTime;
+        float timeLeft = gameDuration - elapsed;
+        if (timeLeft < 0)
+        {
+            gameManager.GoToMenuScene();
+            timeLeftLabel.text = "Game Over";
+        }
+        else
+        {
+            timeLeftLabel.text = $"Time left: {timeLeft:0.00}";
+        }
+    }
+
+    private void ApplyJoystickMovement()
     {
         var forward = inputProvider.GetHeadTransform().forward;
         forward.y = 0f;
@@ -69,17 +98,5 @@ public class ExampleGameSceneController : MonoBehaviour
         movement *= movementSpeed * Time.deltaTime;
 
         inputProvider.GetRigTransform().position += movement;
-
-        var elapsed = Time.time - startTime;
-        var timeLeft = gameDuration - elapsed;
-        if (timeLeft < 0)
-        {
-            gameManager.GoToMenuScene();
-            timeLeftLabel.text = "Game Over";
-        }
-        else
-        {
-            timeLeftLabel.text = $"{timeLeft:0.00}";
-        }
     }
 }

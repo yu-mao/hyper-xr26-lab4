@@ -34,7 +34,12 @@ public class BouncyBall : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(delayLow, delayHigh));
 
-            yield return meshRenderer.material.DOColor(Color.white, 0.3f).SetEase(Ease.InOutFlash).SetLoops(3).WaitForCompletion();
+            yield return meshRenderer.material
+                .DOColor(Color.white, 0.3f)
+                .SetEase(Ease.InOutFlash)
+                .SetLoops(3)
+                .WaitForCompletion();
+
             meshRenderer.material.DOColor(originalColor, 0.4f);
 
             var impulse = Random.Range(impulseLow, impulseHigh);

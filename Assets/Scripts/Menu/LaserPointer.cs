@@ -36,6 +36,7 @@ public class LaserPointer : MonoBehaviour
 
             //Update laser dot
             dot.transform.localPosition = localHitPoint;
+            //dot.transform.position = hitInfo.point; //The same in the end
             dot.SetActive(true);
 
             newButton = hitInfo.collider.GetComponentInParent<RaycastTargetButton>();
