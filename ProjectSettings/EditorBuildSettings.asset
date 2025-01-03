@@ -12,14 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 223c8fd0e4a3c46418c65f7a746fb689
   - enabled: 1
-    path: Assets/Scenes/Game_Joystick.unity
+    path: Assets/Scenes/Game.unity
     guid: 7cb20630da4756849a10693f5dcc5d07
   - enabled: 1
-    path: Assets/Scenes/Game_Climbing.unity
-    guid: 2a9fd8da1995d804894a1ce4e0d30df6
-  - enabled: 1
-    path: Assets/Scenes/Game_Teleport.unity
-    guid: 449f8e72c4c242d4eaf629824da6f8f2
+    path: Assets/Scenes/Game_Example.unity
+    guid: 3f87a98b7af6f744191ea43e433d46a0
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 74d86ff86db192241a9477cc43a96063, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

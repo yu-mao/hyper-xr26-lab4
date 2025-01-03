@@ -1,9 +1,14 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MenuSceneController : MonoBehaviour
 {
+    [SerializeField]
+    private LaserPointer laserPointer;
+    [SerializeField]
+    private RaycastTargetButton gameButton;
+    [SerializeField]
+    private RaycastTargetButton exampleButton;
+
     private GameManager gameManager;
     private IInputProvider inputProvider;
 
@@ -13,6 +18,9 @@ public class MenuSceneController : MonoBehaviour
         {
             Initialize(GameManager.BootstrapFromEditor());
         }
+
+        gameButton.Clicked += OnGameClicked;
+        exampleButton.Clicked += OnExampleClicked;
     }
 
     public void Initialize(GameManager gameManager)
@@ -20,31 +28,19 @@ public class MenuSceneController : MonoBehaviour
         this.gameManager = gameManager;
 
         inputProvider = gameManager.InputProvider;
-
         inputProvider.GetRigTransform().position = Vector3.zero;
 
-        StartCoroutine(PlayStartupSequence());
+        laserPointer.Initialize(inputProvider.GetRightController());
     }
 
-    private IEnumerator PlayStartupSequence()
+    private void OnGameClicked()
     {
-        yield return gameManager.LoadingScreen.Hide();
+        gameManager.GoToGameScene();
     }
 
-    private void Update()
+    private void OnExampleClicked()
     {
-        if (inputProvider.GetLeftController().IsButtonPressed(ControllerButtonId.One))
-        {
-            gameManager.GoToJoystickScene();
-        }
-        if (inputProvider.GetRightController().IsButtonPressed(ControllerButtonId.One))
-        {
-            gameManager.GoToTeleportScene();
-        }
-        if (inputProvider.GetRightController().IsButtonPressed(ControllerButtonId.Two))
-        {
-            gameManager.GoToClimbingScene();
-        }
+        gameManager.GoToGameExampleScene();
     }
 }
 

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLeftController: 0
   buttonB:
-    m_Name: 
+    m_Name: Button B
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: ec470d8d-81cf-41d4-8802-cccda5586939

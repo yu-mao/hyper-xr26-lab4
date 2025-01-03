@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public IInputProvider InputProvider { get; private set; }
     public LoadingScreen LoadingScreen => loadingScreen;
+
+    private bool inTransition = false;
 
     private void Awake()
     {
@@ -40,40 +43,24 @@ public class GameManager : MonoBehaviour
         loadingScreen.Initialize(InputProvider.GetHeadTransform());
     }
 
-    private void Update()
+    public Coroutine GoToGameScene()
     {
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            StartCoroutine(loadingScreen.Show());
-        }
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            StartCoroutine(loadingScreen.Hide());
-        }
+        Debug.LogError("This part is for lab 4");
+        return null;
     }
 
-    public void GoToJoystickScene()
+    public Coroutine GoToGameExampleScene()
     {
-        StartCoroutine(LoadScene("Game_Joystick", () =>
+        return StartCoroutine(LoadScene("Game_Example", () =>
         {
-            var sceneController = GameObject.FindAnyObjectByType<JoystickSceneController>();
+            var sceneController = GameObject.FindAnyObjectByType<ExampleGameSceneController>();
             sceneController.Initialize(this);
         }));
     }
 
-    public void GoToClimbingScene()
+    public Coroutine GoToMenuScene()
     {
-        throw new NotImplementedException();
-    }
-
-    public void GoToTeleportScene()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void GoToMenuScene()
-    {
-        StartCoroutine(LoadScene("Menu", () =>
+        return StartCoroutine(LoadScene("Menu", () =>
         {
             var sceneController = GameObject.FindAnyObjectByType<MenuSceneController>();
             sceneController.Initialize(this);
@@ -82,8 +69,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadScene(string sceneName, Action sceneLoadedCallback)
     {
+        if(inTransition)
+        {
+            yield break;
+        }
+
+        inTransition = true;
+        yield return loadingScreen.Show();
         yield return SceneManager.LoadSceneAsync(sceneName);
         sceneLoadedCallback?.Invoke();
+        yield return loadingScreen.Hide();
+        inTransition = false;
     }
 
     public static GameManager BootstrapFromEditor()

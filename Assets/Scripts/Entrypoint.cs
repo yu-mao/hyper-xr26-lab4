@@ -26,8 +26,6 @@ public class Entrypoint : MonoBehaviour
         yield return title.transform.DOScale(0f, 0.3f).WaitForCompletion();
         yield return new WaitForSeconds(0.5f);
 
-        yield return gameManager.LoadingScreen.Show();
-
         gameManager.GoToMenuScene();
     }
 }
