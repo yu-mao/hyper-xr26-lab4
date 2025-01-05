@@ -45,8 +45,11 @@ public class GameManager : MonoBehaviour
 
     public Coroutine GoToGameScene()
     {
-        Debug.LogError("This part is for lab 4");
-        return null;
+        return StartCoroutine(LoadScene("Game", () =>
+        {
+            var sceneController = GameObject.FindAnyObjectByType<GameSceneController>();
+            sceneController.Initialize(this);
+        }));
     }
 
     public Coroutine GoToGameExampleScene()
