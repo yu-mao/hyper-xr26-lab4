@@ -13,5 +13,3 @@ Unity, C#, Meta Quest 3, Tween library
 
 ## Video Recording
 https://youtube.com/shorts/hZ6K169ox6I?feature=share
-
-[YouTube video link](https://youtube.com/shorts/hZ6K169ox6I?feature=share)
