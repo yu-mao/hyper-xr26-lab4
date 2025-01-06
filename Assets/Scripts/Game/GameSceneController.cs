@@ -33,13 +33,6 @@ public class GameSceneController : MonoBehaviour
         startTime = Time.time;
         StartCoroutine(GameSequence());
     }
-
-    // public void HitABall()
-    // {
-    //     countHits++;
-    //     scoreLabel.text = "Score: " + countHits.ToString();
-    // }
-    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -71,31 +64,13 @@ public class GameSceneController : MonoBehaviour
         if (rightController.IsTriggerPressed() && !wasTriggerPressedLastFrame)
         {
             var controllerTransform = rightController.GetTransform();
-            Instantiate(projectilePrefab, controllerTransform);
+            var projectile = Instantiate(projectilePrefab, controllerTransform);
+            projectile.HitABall += OnBallHit;
         }
         
         wasTriggerPressedLastFrame = rightController.IsTriggerPressed();
     }
-
-    private void ApplyJoystickMovement()
-    {
-        var forward = inputProvider.GetHeadTransform().forward;
-        forward.y = 0f;
-        forward.Normalize();
-        
-        var right = inputProvider.GetHeadTransform().right;
-        right.y = 0f;
-        right.Normalize();
-
-        forward *= rightController.Joystick.y;
-        right *= rightController.Joystick.x;
-
-        var movement = forward + right;
-        movement *= movementSpeed * Time.deltaTime;
-        
-        inputProvider.GetRigTransform().position += movement;
-    }
-
+  
     private IEnumerator GameSequence()
     {
         for (int i = 0; i < spawnCount; i++)
@@ -115,4 +90,30 @@ public class GameSceneController : MonoBehaviour
             }
         }
     }
+    
+    private void ApplyJoystickMovement()
+    {
+        var forward = inputProvider.GetHeadTransform().forward;
+        forward.y = 0f;
+        forward.Normalize();
+        
+        var right = inputProvider.GetHeadTransform().right;
+        right.y = 0f;
+        right.Normalize();
+
+        forward *= rightController.Joystick.y;
+        right *= rightController.Joystick.x;
+
+        var movement = forward + right;
+        movement *= movementSpeed * Time.deltaTime;
+        
+        inputProvider.GetRigTransform().position += movement;
+    }
+
+    private void OnBallHit()
+    {
+        countHits++;
+        scoreLabel.text = "Score: " + countHits.ToString();
+    }
+    
 }

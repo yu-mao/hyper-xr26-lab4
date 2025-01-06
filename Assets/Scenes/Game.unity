@@ -3250,12 +3250,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86f245c1e885497392b4e854fed5e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCount: 20
+  spawnCount: 50
   spawnDelay: 0.5
   myBouncyBallPrefab: {fileID: 6872314482452188694, guid: 63fe231bcef1c16449751886e3b1aee4, type: 3}
   movementSpeed: 4
   projectilePrefab: {fileID: 3217320809714102122, guid: f71afb3c880814d96b53a15b58a03786, type: 3}
-  gameDuration: 60
+  gameDuration: 30
   timeLeftLabel: {fileID: 395027562}
   scoreLabel: {fileID: 1645402002}
 --- !u!1001 &606693218

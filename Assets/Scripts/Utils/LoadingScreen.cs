@@ -45,7 +45,6 @@ public class LoadingScreen : MonoBehaviour
 
         meshRenderer.material.SetFloat("_Alpha", 1f);
         yield return meshRenderer.material.DOFloat(0f, "_Alpha", 1f).WaitForCompletion();
-        Debug.Log("done");
         gameObject.SetActive(false);
     }
 }

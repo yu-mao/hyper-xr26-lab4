@@ -150,4 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1
-  projectForce: 50
+  projectForce: 100
