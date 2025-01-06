@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameSceneController : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class GameSceneController : MonoBehaviour
     [SerializeField] private float spawnDelay = 0.5f;
     [SerializeField] private BouncyBall myBouncyBallPrefab;
     [SerializeField] private float movementSpeed = 4f;
+    [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float gameDuration = 60f;
     [SerializeField] private TextMeshPro timeLeftLabel;
     [SerializeField] private TextMeshPro scoreLabel;
@@ -17,6 +20,8 @@ public class GameSceneController : MonoBehaviour
     private IControllerInput leftController;
     private IControllerInput rightController;
     private float startTime;
+    private int countHits = 0;
+    private bool wasTriggerPressedLastFrame = false;
     
     public void Initialize(GameManager gameManager)
     {
@@ -28,6 +33,13 @@ public class GameSceneController : MonoBehaviour
         startTime = Time.time;
         StartCoroutine(GameSequence());
     }
+
+    // public void HitABall()
+    // {
+    //     countHits++;
+    //     scoreLabel.text = "Score: " + countHits.ToString();
+    // }
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -36,6 +48,7 @@ public class GameSceneController : MonoBehaviour
         {
             Initialize(GameManager.BootstrapFromEditor());
         }
+        scoreLabel.text = "Score: " + countHits.ToString();
     }
 
     // Update is called once per frame
@@ -54,6 +67,14 @@ public class GameSceneController : MonoBehaviour
         {
             timeLeftLabel.text = "Time Left: " + timeLeft.ToString("0.00");
         }
+
+        if (rightController.IsTriggerPressed() && !wasTriggerPressedLastFrame)
+        {
+            var controllerTransform = rightController.GetTransform();
+            Instantiate(projectilePrefab, controllerTransform);
+        }
+        
+        wasTriggerPressedLastFrame = rightController.IsTriggerPressed();
     }
 
     private void ApplyJoystickMovement()
