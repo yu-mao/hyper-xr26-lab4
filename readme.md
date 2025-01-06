@@ -5,13 +5,13 @@ The project is built upon [Daniel's repo](https://github.com/daniel-mansson/hype
 ## Development Stack
 Unity, C#, Meta Quest 3, Tween library
 
-## Developed Features (in branch "lab4")
+## Developed Features
 * Load game scene asynchronously
 * Shoot bouncing balls using a Meta Quest hand controller using Unity physics
 * Visually polish the ball shooting effect using Tween library
 * Display the count of shot balls
 
 ## Video Recording
-<iframe width="512" height="512" src="https://youtube.com/shorts/hZ6K169ox6I?feature=share" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+https://youtube.com/shorts/hZ6K169ox6I?feature=share
 
 [YouTube video link](https://youtube.com/shorts/hZ6K169ox6I?feature=share)
